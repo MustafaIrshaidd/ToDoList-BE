@@ -3,7 +3,6 @@ import todolist from "../../database/models/todolist.js";
 
 const todolists = express.Router();
 
-
 // Get Methods
 export const getToDoLists = async (req, res) => {
   try {
@@ -34,11 +33,33 @@ export const getToDoListById = async (req, res) => {
 export const searchToDoList = async (req, res) => {
   try {
     const searchTerm = req.params.search;
-    const result = await todolist.find({ title: { $regex: searchTerm, $options: 'i' } });
+    const result = await todolist.find({
+      title: { $regex: searchTerm, $options: "i" },
+    });
 
     if (!result) {
       return res.status(404).json({ message: "no results" });
     }
+    res.json(result);
+  } catch (error) {
+    console.error("Error:", error);
+    res.status(500).send("Internal Server Error");
+  }
+};
+export const paginateToDoList = async (req, res) => {
+  try {
+    const pageNumber = req.params.page;
+    const startIndex = (pageNumber - 1) * 10;
+
+    const result = await todolist.find({}, null, {
+      skip: startIndex,
+      limit: 10,
+    });
+
+    if (!result) {
+      return res.status(404).json({ message: "no results" });
+    }
+
     res.json(result);
   } catch (error) {
     console.error("Error:", error);
@@ -99,6 +120,5 @@ export const updateToDoListById = async (req, res) => {
     res.status(500).send("Internal Server Error");
   }
 };
-
 
 export default todolists;

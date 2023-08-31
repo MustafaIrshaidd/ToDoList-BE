@@ -6,6 +6,7 @@ import {
   searchToDoList,
   setToDoList,
   updateToDoListById,
+  paginateToDoList,
 } from "./todolistsOperations.js";
 
 const todolistsRouter = express.Router();
@@ -14,7 +15,7 @@ const todolistsRouter = express.Router();
 todolistsRouter.get("/todolists", getToDoLists);
 todolistsRouter.get("/todolist/:id", getToDoListById);
 todolistsRouter.get("/todolist/search/:search", searchToDoList);
-// todolistsRouter.get("/todolist/paginate/:page", paginateToDoList);
+todolistsRouter.get("/todolist/paginate/:page", paginateToDoList);
 
 // Post Routers
 todolistsRouter.post("/todolists", setToDoList);
