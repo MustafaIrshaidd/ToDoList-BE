@@ -10,19 +10,19 @@ import {
 
 const todolistsRouter = express.Router();
 
-// Get Methods
+// Get Routers
 todolistsRouter.get("/todolists", getToDoLists);
 todolistsRouter.get("/todolist/:id", getToDoListById);
 todolistsRouter.get("/todolist/search/:search", searchToDoList);
 // todolistsRouter.get("/todolist/paginate/:page", paginateToDoList);
 
-// Post Methods
+// Post Routers
 todolistsRouter.post("/todolists", setToDoList);
 
-// Delete Methods
+// Delete Routers
 todolistsRouter.delete("/todolist/:id", deleteToDoListById);
 
-// Update Methods
+// Update Routers
 todolistsRouter.put("/todolist/:id", updateToDoListById);
 
 export default todolistsRouter;

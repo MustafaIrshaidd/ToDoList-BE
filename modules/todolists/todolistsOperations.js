@@ -3,6 +3,8 @@ import todolist from "../../database/models/todolist.js";
 
 const todolists = express.Router();
 
+
+// Get Methods
 export const getToDoLists = async (req, res) => {
   try {
     const todolists = await todolist.find();
@@ -13,22 +15,6 @@ export const getToDoLists = async (req, res) => {
     res.status(500).send("Internal Server Error");
   }
 };
-
-export const setToDoList = async (req, res) => {
-  try {
-    const latestDoc = await todolist.findOne().sort({ id: -1 });
-    const newId = latestDoc ? latestDoc.id + 1 : 0;
-    let obj = req.body;
-    obj = { ...obj, id: newId };
-    await todolist.create(obj);
-
-    res.send({ status: "success" });
-  } catch (error) {
-    console.error("Error:", error);
-    res.status(500).send("Internal Server Error");
-  }
-};
-
 export const getToDoListById = async (req, res) => {
   try {
     const id = req.params.id;
@@ -45,7 +31,38 @@ export const getToDoListById = async (req, res) => {
     res.status(500).send("Internal Server Error");
   }
 };
+export const searchToDoList = async (req, res) => {
+  try {
+    const searchTerm = req.params.search;
+    const result = await todolist.find({ title: { $regex: searchTerm, $options: 'i' } });
 
+    if (!result) {
+      return res.status(404).json({ message: "no results" });
+    }
+    res.json(result);
+  } catch (error) {
+    console.error("Error:", error);
+    res.status(500).send("Internal Server Error");
+  }
+};
+
+// Post Methods
+export const setToDoList = async (req, res) => {
+  try {
+    const latestDoc = await todolist.findOne().sort({ id: -1 });
+    const newId = latestDoc ? latestDoc.id + 1 : 0;
+    let obj = req.body;
+    obj = { ...obj, id: newId };
+    await todolist.create(obj);
+
+    res.send({ status: "success" });
+  } catch (error) {
+    console.error("Error:", error);
+    res.status(500).send("Internal Server Error");
+  }
+};
+
+// Delete Methods
 export const deleteToDoListById = async (req, res) => {
   try {
     const id = req.params.id;
@@ -65,6 +82,7 @@ export const deleteToDoListById = async (req, res) => {
   }
 };
 
+// Update Methods
 export const updateToDoListById = async (req, res) => {
   try {
     const id = req.params.id;
@@ -82,8 +100,5 @@ export const updateToDoListById = async (req, res) => {
   }
 };
 
-export const searchToDoList = async (req, res) => {
-  
-};
 
 export default todolists;
