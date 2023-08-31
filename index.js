@@ -10,7 +10,6 @@ app.use(express.json());
 app.use(todolistsRouter);
 
 app.use((error, req, res, next) => {
-  console.log(error.message);
   res.status(error.statusCode).send({
     status: false,
     message: error.message,

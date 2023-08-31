@@ -65,4 +65,21 @@ export const deleteToDoListById = async (req, res) => {
   }
 };
 
+export const updateToDoListById = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const obj = await todolist.findOne({ id });
+    let newObj = req.body;
+    if (!obj) {
+      return res.status(404).json({ message: "ToDo list not found" });
+    }
+    await todolist.updateOne({ id: id }, { $set: newObj });
+
+    res.send({ status: "success" });
+  } catch (error) {
+    console.error("Error:", error);
+    res.status(500).send("Internal Server Error");
+  }
+};
+
 export default todolists;
