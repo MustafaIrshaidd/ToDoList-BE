@@ -3,22 +3,21 @@ import dbConnection from "./database/connection.js";
 
 import todolistsRouter from "./middleware/todolists/todolistsRouter.js";
 
-
 const app = express();
 
 app.use(express.json());
 
-app.use(todolistsRouter)
+app.use(todolistsRouter);
 
 app.use((error, req, res, next) => {
-  console.log(error.message)
+  console.log(error.message);
   res.status(error.statusCode).send({
-    status:false,
-    message:error.message,
-    stack:error.stack,
-    statusCode:error.statusCode,
-    errors:error.errors
-  })
+    status: false,
+    message: error.message,
+    stack: error.stack,
+    statusCode: error.statusCode,
+    errors: error.errors,
+  });
 });
 
 app.listen(3000, () => {

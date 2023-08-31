@@ -31,7 +31,6 @@ export const setToDoList = async (req, res) => {
 
 export const getToDoListById = async (req, res) => {
   try {
-    console.log("hello");
     const id = req.params.id;
 
     const obj = await todolist.findOne({ id });
@@ -40,7 +39,26 @@ export const getToDoListById = async (req, res) => {
       return res.status(404).json({ message: "ToDo list not found" });
     }
 
-    res.json(obj); // Use obj instead of document
+    res.json(obj);
+  } catch (error) {
+    console.error("Error:", error);
+    res.status(500).send("Internal Server Error");
+  }
+};
+
+export const deleteToDoListById = async (req, res) => {
+  try {
+    const id = req.params.id;
+
+    const obj = await todolist.findOne({ id });
+
+    if (!obj) {
+      return res.status(404).json({ message: "ToDo list not found" });
+    }
+
+    await todolist.deleteOne({ id });
+
+    res.send({ status: "success" });
   } catch (error) {
     console.error("Error:", error);
     res.status(500).send("Internal Server Error");
