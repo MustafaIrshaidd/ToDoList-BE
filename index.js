@@ -1,7 +1,7 @@
 import express from "express";
 import dbConnection from "./database/connection.js";
 
-import todolistsRouter from "./middleware/todolists/todolistsRouter.js";
+import todolistsRouter from "./modules/todolists/todolistsRouter.js";
 
 const app = express();
 

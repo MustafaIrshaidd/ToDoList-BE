@@ -11,6 +11,5 @@
       "start": "nodemon index.js"
     }
 
-  }
-
+}
 
