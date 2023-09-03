@@ -1,11 +1,13 @@
 import express from "express";
 import dbConnection from "./database/connection.js";
-
+import cors from 'cors';
 import todolistsRouter from "./modules/todolists/todolistsRouter.js";
 
 const app = express();
 
 app.use(express.json());
+
+app.use(cors());
 
 app.use(todolistsRouter);
 

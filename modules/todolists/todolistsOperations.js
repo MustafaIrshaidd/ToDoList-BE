@@ -3,7 +3,7 @@ import todolist from "../../database/models/todolist.js";
 
 const todolists = express.Router();
 
-// Get Methods
+// GET Methods
 export const getToDoLists = async (req, res) => {
   try {
     const todolists = await todolist.find();
@@ -16,9 +16,9 @@ export const getToDoLists = async (req, res) => {
 };
 export const getToDoListById = async (req, res) => {
   try {
-    const id = req.params.id;
+    const _id = req.params.id;
 
-    const obj = await todolist.findOne({ id });
+    const obj = await todolist.findOne({ _id });
 
     if (!obj) {
       return res.status(404).json({ message: "ToDo list not found" });
@@ -67,15 +67,12 @@ export const paginateToDoList = async (req, res) => {
   }
 };
 
-// Post Methods
+// POST Methods
 export const setToDoList = async (req, res) => {
   try {
-    const latestDoc = await todolist.findOne().sort({ id: -1 });
-    const newId = latestDoc ? latestDoc.id + 1 : 0;
     let obj = req.body;
-    obj = { ...obj, id: newId };
+    console.log(obj);
     await todolist.create(obj);
-
     res.send({ status: "success" });
   } catch (error) {
     console.error("Error:", error);
@@ -83,18 +80,18 @@ export const setToDoList = async (req, res) => {
   }
 };
 
-// Delete Methods
+// DELETE Methods
 export const deleteToDoListById = async (req, res) => {
   try {
-    const id = req.params.id;
+    const _id = req.params.id;
 
-    const obj = await todolist.findOne({ id });
+    const obj = await todolist.findOne({ _id });
 
     if (!obj) {
       return res.status(404).json({ message: "ToDo list not found" });
     }
 
-    await todolist.deleteOne({ id });
+    await todolist.deleteOne({ _id });
 
     res.send({ status: "success" });
   } catch (error) {
@@ -103,16 +100,18 @@ export const deleteToDoListById = async (req, res) => {
   }
 };
 
-// Update Methods
+// UPDATE Methods
 export const updateToDoListById = async (req, res) => {
   try {
-    const id = req.params.id;
-    const obj = await todolist.findOne({ id });
-    let newObj = req.body;
+    const _id = req.params.id;
+    const obj = await todolist.findOne({ _id });
+    const newObj = req.body;
+
     if (!obj) {
       return res.status(404).json({ message: "ToDo list not found" });
     }
-    await todolist.updateOne({ id: id }, { $set: newObj });
+
+    await todolist.updateOne({ _id }, { $set: newObj });
 
     res.send({ status: "success" });
   } catch (error) {
