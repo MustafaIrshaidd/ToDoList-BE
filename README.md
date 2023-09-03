@@ -2,12 +2,14 @@
 This is Backend For To Do List
 
 ## How To Run ?
-1. Download MongoDB and start it
+1. Download [MongoDB](https://www.mongodb.com/download-center/community/releases) and start it
 2. git clone the project
 3. npm i
 4. npm start
 
 ## Endpoints
+
+You can test EndPoints By [Postman](https://www.postman.com/downloads/)
 
 ### GET METHODS
 1. get ToDoLists ->  http://localhost:3000/todolists
