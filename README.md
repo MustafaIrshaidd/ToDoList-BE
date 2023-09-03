@@ -13,13 +13,13 @@ Open Terminal and follow the instructions
 
 You can test EndPoints By [Postman](https://www.postman.com/downloads/)
 
-### GET METHODS
+### GET Methods
 1. get ToDoLists ->  http://localhost:3000/todolists
 2. get ToDoList By ID -> http://localhost:3000/todolists/:id
 3. search ToDoLists By Title -> http://localhost:3000/todolists/search/:searchQuery
 4. paginate ToDoLists -> http://localhost:3000/todolists/paginate/:pageNumber
 
-### POST METHODS
+### POST Methods
 1. Add ToDOList -> http://localhost:3000/todolists  -- body should have it's object Model
 
 ### Delete Methods
