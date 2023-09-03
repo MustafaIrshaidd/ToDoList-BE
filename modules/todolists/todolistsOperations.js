@@ -71,9 +71,9 @@ export const paginateToDoList = async (req, res) => {
 export const setToDoList = async (req, res) => {
   try {
     let obj = req.body;
-    console.log(obj);
-    await todolist.create(obj);
-    res.send({ status: "success" });
+
+    const result = await todolist.create(obj);
+    res.send({ status: "success", data: result });
   } catch (error) {
     console.error("Error:", error);
     res.status(500).send("Internal Server Error");
