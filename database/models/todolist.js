@@ -1,13 +1,13 @@
 import mongoose from "mongoose";
+
 const { Schema } = mongoose;
 
 const todolist = new Schema(
   {
-    id: { type: Number, required: true, unique: true },
-    title: String,
-    cardImg: String,
-    cardIcon: String,
-    cardDate: String,
+    title: { type: String,  default: "Untitled" },
+    cardImg: { type: String, default: "" },
+    cardIcon: { type: String, default: "" },
+    cardDate: { type: String, default: "" },
     tasks: {
       todo: Array,
       inprogress: Array,
