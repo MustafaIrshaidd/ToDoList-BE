@@ -2,6 +2,8 @@
 This is Backend For To Do List
 
 ## How To Run ?
+Open Terminal and follow the instructions
+
 1. Download [MongoDB](https://www.mongodb.com/download-center/community/releases) and start it
 2. git clone the project
 3. npm i
